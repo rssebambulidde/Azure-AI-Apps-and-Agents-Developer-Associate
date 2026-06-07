@@ -1,18 +1,55 @@
 # Integrate custom tools into your agent
 
-- 53 min
-- Module
-- 7 Units
+Short, practical guide to extending a Foundry agent with custom tools.
 
-Intermediate
-AI Engineer
-Developer
-Solution Architect
-Student
-Microsoft Foundry
-Foundry Agent Service
+Learning objectives
+- Explain why custom tools are useful.
+- Compare function calling, Azure Functions, and OpenAPI tools.
+- Add a simple custom tool to a Foundry agent and test it.
 
-Built-in tools are useful, but they may not meet all your needs. In this module, learn how to extend the capabilities of your agent by integrating custom tools for your agent to use.
+Prerequisites
+- Basic Azure knowledge and access to a Foundry project.
+- Familiarity with Python or another server language.
+
+Overview — what custom tools do
+- Give agents code-level access to systems (databases, APIs, business logic).
+- Let agents perform reliable, auditable actions (create tickets, fetch records, call back-end services).
+
+Main options (short)
+- Function calling: Define lightweight functions the agent can invoke directly. Good for inline logic and small helpers.
+- Azure Functions: Serverless endpoints for async or long-running tasks; integrates well with queues and bindings.
+- OpenAPI tools: Register an API with an OpenAPI spec so the agent can call any HTTP service with typed parameters.
+
+Quick example (function calling)
+```
+def get_order_status(order_id: str) -> dict:
+	# call internal service, return JSON
+	return {"order_id": order_id, "status": "Shipped"}
+```
+Register this as a FunctionTool (name, parameters, description) so the agent can call it by name.
+
+Best practices
+- Define precise parameter schemas and helpful descriptions.
+- Never embed secrets in client code; use secrets storage (Key Vault, Worker secrets).
+- Log tool calls and results for audit and debugging.
+- Fail safely: return clear errors the agent can surface to users.
+
+Simple test plan
+1. Add the tool to a dev agent and run sample prompts that should trigger it.
+2. Verify tool output, logs, and that the agent uses the tool correctly.
+3. Add unit tests for the tool logic and an end-to-end test for the agent workflow.
+
+Exercises
+- Add a `get_order_status` function tool to your agent and test it with example prompts.
+- Create an OpenAPI spec for a simple weather API and register it as an OpenAPI tool.
+- Deploy an Azure Function to handle a queue-triggered task and wire it into the agent.
+
+Next steps
+- Secure secrets and restrict direct access to back-end services (allowlist Cloudflare or use private endpoints).
+- Add monitoring and budgets for resources used by custom tools.
+
+References
+- Function calling, Azure Functions, and OpenAPI tooling are supported by Foundry agent definitions and the Azure SDK.
 
 ## Learning objectives
 By the end of this module, you'll be able to:
