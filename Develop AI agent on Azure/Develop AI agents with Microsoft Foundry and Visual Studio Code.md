@@ -41,326 +41,62 @@
 - Prompt injection
 - Unauthorized access
 - Data poisoning
-- Supply chain vulnerabilities
-- Unsafe autonomous actions
-- Poor logging
-- Model output leakage
-
-### Mitigation strategies
-- Use RBAC and least privilege
-- Filter and validate prompts
-- Gate sensitive actions with human review
-- Log everything and audit frequently
-- Keep data and models refreshed and clean
-
-### Foundry overview
-- Fully managed platform for declarative and hosted agents
-- Supports prompt-based agents, workflow agents, and hosted container agents
-- Built-in tool catalog and secure data handling
-- Good for enterprise use and production deployments
-
----
-
-## Module 3: Explore Development Approaches
-
-### Foundry portal
-Best for:
-- quick prototyping
-- visual configuration
-- stakeholder review
-- centralized agent management and dashboards
-
-### Visual Studio Code
-Best for:
-- developer workflows
-- version control
-- direct YAML editing
-- production-grade projects
-
-### Common workflow
-1. Connect to Foundry
-2. Create agent
-3. Configure instructions
-4. Add tools
-5. Test
-6. Iterate
-7. Deploy
-8. Integrate
-
-### Required Azure resources
-- Foundry project
-- Model deployments
-
-### Optional Azure services
-- Azure AI Search
-- Azure Storage
-- Azure Key Vault
-- Azure Functions
-
-### How to choose
-- Use portal for visual design and fast experimentation
-- Use VS Code for versioned, code-centric development
-- Many teams combine both
-
----
-
-## Module 4: Build Your First Agent in Microsoft Foundry
-
-### Portal creation steps
-1. Go to https://ai.azure.com
-2. Select or create a Foundry project
-3. Build > Agents > Create
-4. Provide name, description, and model
-
-### Agent configuration
-- System instructions define behavior and tone
-- Temperature and top_p control response style
-- Good instructions improve reliability
-
-### Testing
-- Use the built-in playground
-- Test multi-turn conversations
-- Validate tool use and context handling
-
-### Tools
-- Configured tools: built-in ready-to-use
-- Catalog tools: additional available services
-- Custom tools: your OpenAPI or MCP tools
-
-### Deployment
-- Save and deploy from portal
-- Foundry gives connection info for integration
-
----
-
-## Module 5: Set Up Visual Studio Code for Agent Development
-
-### VS Code extension benefits
-- Manage Foundry resources inside VS Code
-- Edit agents visually or via YAML
-- Support for model deployments, tools, vector stores, and playgrounds
-
-### Installation
-- Search “Microsoft Foundry” in Extensions
-- Install the extension
-
-### Connect to Azure
-- Sign in through Azure view
-- Expand subscription and Foundry project
-- Open project in Foundry extension
-
-### Prepare resources
-- Deploy a model if needed
-- Model deployments must exist before agent config
-
-### Agent management
-- Agents created in portal appear in VS Code
-- Save changes directly to Foundry
-- Compare multiple agents and use Git tracking
-
----
-
-## Module 6: Configure and Manage Agents in Visual Studio Code
-
-### Key properties
-- Agent name and description
-- Model deployment selection
-- System instructions
-- Temperature and top_p
-- Agent ID and metadata
-
-### YAML structure
-- version
-- name
-- description
-- id
-- metadata
-- model
-- instructions
-- tools
-
-### Why edit YAML
-- Better version control
-- Easier bulk changes
-- Templates and automation
-- Clear code review process
-
-### Best practices
-- Keep YAML in Git
-- Use clear names and tags
-- Comment complex logic
-- Test after changes
-- Start simple then iterate
-- Keep instructions narrow
-
----
-
-## Module 7: Extend Agent Capabilities with Tools
-
-### What tools do
-- Tools let agents act on data, execute tasks, and fetch real-time info
-- Agent selects tools automatically when needed
-- Tool results are built into responses
-
-### Common tools
-- Code Interpreter
-- File Search
-- Bing Web Search
-- Azure AI Search
-- OpenAPI-based integrations
-
-### How tool calling works
-1. User sends request
-2. Agent decides tool usage
-3. Tool executes
-4. Results return
-5. Agent responds
-
-### Adding tools
-- Use visual designer or YAML
-- Some tools require additional config like connection IDs or vector stores
-
-### MCP servers
-- Standardized integration protocol
-- Remote, local, or custom servers
-- Good for reusable or enterprise tools
-
-### Tool best practices
-- Start with built-in tools first
-- Choose tools only when needed
-- Tell the agent how/when to use each tool
-- Keep knowledge sources current
-- Test tool invocation carefully
-
----
-
-## Module 8: Test, Deploy, and Integrate Agents
-
-### Testing approaches
-- Happy path
-- Edge cases
-- Out-of-scope requests
-- Multi-turn context
-- Tool invocation verification
-
-### Deploying
-- Save agent configuration to Foundry
-- For hosted agents, deploy from VS Code build menu
-
-### Publishing
-- Creates Agent Application endpoint
-- Provides stable external URL
-- Uses Entra ID authentication
-- Requires Azure AI User role
-
-### Endpoint details
-- Uses Responses API protocol
-- Endpoint remains stable across version updates
-- No API key auth for published agent apps
-
-### Updating published agents
-- Make changes, test, and publish updates
-- Existing endpoint stays the same
-
-### Integration patterns
-- Web apps
-- Backend APIs
-- Chatbot UIs
-- Scheduled automation
-
-### Production focus
-- Monitor latency, tool success, token usage
-- Enforce least privilege
-- Implement retries and validation
-- Store conversation history client-side for multi-turn flows
-
----
-
-## Exam Study Tips
-- Know the difference between portal vs VS Code workflows
-- Understand agent types: prompt-based, workflow, hosted
-- Memorize key tools and when to use them
-- Focus on Foundry security concepts and mitigation
-- Learn deployment vs publish lifecycle
-- Be comfortable with agent YAML structure
-- Understand authentication and RBAC for published agents
-
----
-
-# Exercise - Build and deploy an AI agent
-100 XP
-
-- 30 minutes
-
-In this exercise, you'll build and deploy an AI agent using Microsoft Foundry Agent Service. You'll create an agent, configure its instructions and tools, connect with your Visual Studio Code extension, and use your agent in an app.
-
-> **Note**
-> If you don't have an Azure subscription, and you want to explore Microsoft Foundry, you can [sign up for an account](https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_learn_6ac7212f-340b-3fb8-da59-32004b645966), which includes credits for the first 30 days.
-
-Launch the exercise and follow the instructions.
-
-# Build AI agents with portal and VS Code
-In this exercise, you’ll build a complete AI agent solution using both the Microsoft Foundry portal and the Foundry Toolkit VS Code extension. You’ll start by creating a basic agent in the portal with grounding data and built-in tools, then interact with it programmatically using VS Code to use advanced capabilities like code interpreter for data analysis.
-
-This exercise takes approximately **45 minutes**.
-
-> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
-
-## Prerequisites
-Before starting this exercise, ensure you have:
-
-- An [Azure subscription](https://azure.microsoft.com/free/) with sufficient permissions and quota to provision Azure AI resources
-- [Visual Studio Code](https://code.visualstudio.com/) installed on your local machine
-- [Python 3.13](https://www.python.org/downloads/) or later installed
-- [Git](https://git-scm.com/downloads) installed on your local machine
-- Basic familiarity with Azure AI services and Python programming
-
-> * Python 3.13 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
-
-## Create a Microsoft Foundry Project
-Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
-
-1. In a web browser, open the [Foundry portal](https://ai.azure.com/) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Foundry** logo at the top left to navigate to the home page.
-
-> **Important**: For this lab, you’re using the **New** Foundry experience.
-
-2. In the top banner, select **Start building** to try the new Microsoft Foundry Experience.
-3. When prompted, create a **new** project, and enter a valid name for your project (e.g., `it-support-agent-project`).
-4. Expand **Advanced options** and specify the following settings:
-   - **Microsoft Foundry resource**: *A valid name for your Foundry resource*
-   - **Region**: *Select one available near you*
-   - **Subscription**: *Your Azure subscription*
-   - **Resource group**: *Select your resource group, or create a new one*
-
-> * Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there’s a possibility you may need to create another resource in a different region.
-
-5. Select **Create** and wait for your project to be created.
-6. When your project is created, a welcome dialog may appear. Select **Next** to read through the welcome message, and then select **Create agent**. You can also select **Start building** on the home page, and select **Create agents** from the drop-down menu.
-7. Set the **Agent name** to `it-support-agent` and create the agent.
-
-The playground will open for your newly created agent. You’ll see that an available deployed model is already selected for you.
-
-## Configure your agent with instructions and grounding data
-Now that you have an agent created, let’s configure it with instructions and add grounding data.
-
-1. In the agent playground, set the **Instructions** to:
-```text
-You are an IT Support Agent for Contoso Corporation.
-You help employees with technical issues and IT policy questions.
-
-Guidelines:
-- Always be professional and helpful
-- Use the IT policy documentation to answer questions accurately
-- If you don't know the answer, admit it and suggest contacting IT support directly
-- When creating tickets, collect all necessary information before proceeding
-```
-2. Download the IT policy document from the lab repository. Open a new browser tab and navigate to:
-```text
-https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-agents/main/Labfiles/01-build-agent-portal-and-vscode/IT_Policy.txt
-```
-Save the file to your local machine.
-
-> **Note**: This document contains sample IT policies for password resets, software installation requests, and hardware troubleshooting.
+# Azure AI Apps and Agents Developer Associate (beta) — Simplified Study Guide
+
+This file is a concise study reference for building AI agents with Microsoft Foundry and Visual Studio Code. Each module below has a short summary, learning objectives, and quick exercises.
+
+Module 1 — Introduction
+- What: Overview of Microsoft Foundry Agent Service and why agents matter.
+- Key: Foundry provides managed agent hosting, tooling, and secure data handling.
+- Try: Sign into the Foundry portal and explore a sample agent.
+
+Module 2 — What is an AI agent
+- What: Agents combine LLMs with tools and state to perform tasks beyond chat.
+- Key: Understand tool use, context management, and common security risks (prompt injection, data leaks).
+- Try: List three potential risks for an agent in your org and one mitigation per risk.
+
+Module 3 — Development approaches
+- What: Portal (low-code) vs VS Code (code, YAML, source control).
+- Key: Use portal for quick prototypes; VS Code for repeatable, versioned workflows.
+- Try: Export an agent YAML from the portal and open it in VS Code.
+
+Module 4 — Build your first agent
+- What: Create an agent, add instructions, choose a model, test in the playground.
+- Key: System instructions and temperature shape behavior; tools extend capabilities.
+- Try: Create a simple FAQ agent and test multi-turn flows.
+
+Module 5 — Set up VS Code
+- What: Install Foundry extension, sign in, manage resources from VS Code.
+- Key: Keep agent YAML in Git and deploy via the extension or portal.
+- Try: Connect VS Code to your Foundry project and open the agent definition.
+
+Module 6 — Configure and manage agents
+- What: Agent YAML — name, model, instructions, tools, metadata.
+- Key: Use small, testable instructions; keep YAML clean for reviews.
+- Try: Add metadata tags and a version comment to your agent YAML.
+
+Module 7 — Extend agents with tools
+- What: Tools let agents call code or APIs (Function calling, Azure Functions, OpenAPI).
+- Key: Choose the right tool for the job and define clear parameter schemas.
+- Try: Add a `get_order_status` function tool and test sample prompts.
+
+Module 8 — Test, deploy, integrate
+- What: Validate happy/edge paths, publish agents, integrate via Responses API.
+- Key: Protect endpoints with Azure AD or Cloudflare Access; treat model calls as billable operations.
+- Try: Publish a dev agent and call it from the sample Python client.
+
+Exam tips
+- Know trade-offs: portal vs VS Code, function calling vs OpenAPI tools.
+- Understand security controls: RBAC, Key Vault, allowlists, prompt validation.
+
+Practical exercises
+- Build a simple agent (FAQ) and add one custom tool.
+- Host a static UI (Cloudflare Pages) and proxy calls via Cloudflare Worker.
+- Tag resources and check cost for `rg-samabrains-ai-lab` in Cost Management.
+
+References & next steps
+- Use the Azure Foundry docs and the `azure-ai-projects` SDK for examples.
+- Secure secrets, create budgets, and add monitoring (App Insights or Cloudflare analytics).
 
 3. Return to the agent playground. In the **Tools** section, select **Add**, and then add both **File search** and **Code interpreter**.
 4. To the right of **Add**, select **Upload files**. Under **Attach files**, browse to and upload the `IT_Policy.txt` file you just downloaded, and then select **Attach**.
