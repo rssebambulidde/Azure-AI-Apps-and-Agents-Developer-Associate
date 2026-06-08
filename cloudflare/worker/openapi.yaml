@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Travel Tools API
+  version: 1.0.0
+  description: Remote travel tool endpoints for Azure AI Foundry.
+servers:
+  - url: https://travel-tools-worker.rssebambulidde.workers.dev
+paths:
+  /weather:
+    get:
+      summary: Get weather for a city
+      operationId: getWeather
+      parameters:
+        - in: query
+          name: city
+          required: true
+          schema:
+            type: string
+          description: City name to look up.
+      responses:
+        '200':
+          description: Weather response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+                  summary:
+                    type: string
+  /itinerary:
+    get:
+      summary: Create a simple itinerary
+      operationId: createItinerary
+      parameters:
+        - in: query
+          name: city
+          required: true
+          schema:
+            type: string
+          description: Destination city.
+        - in: query
+          name: days
+          required: false
+          schema:
+            type: integer
+            default: 3
+          description: Number of days.
+      responses:
+        '200':
+          description: Itinerary response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+                  days:
+                    type: integer
+                  itinerary:
+                    type: array
+                    items:
+                      type: string
